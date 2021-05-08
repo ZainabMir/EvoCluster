@@ -10,7 +10,7 @@ from pathlib import Path
 
 import optimizers.CSSA as cssa
 import optimizers.CPSO as cpso
-import optimizers.CGA as cga
+import optimizers.WOABAT as woabat
 import optimizers.CBAT as cbat
 import optimizers.CFFA as cffa
 import optimizers.CGWO as cgwo
@@ -375,8 +375,8 @@ def selector(algo,objective_name, k, f, popSize,Iter, points, metric):
 		x=cssa.SSA(getattr(objectives, objective_name),lb,ub,k * f,popSize,Iter, k, points, metric)        
 	if(algo=="PSO"):
 		x=cpso.PSO(getattr(objectives, objective_name),lb,ub,k * f,popSize,Iter, k, points, metric)        
-	if(algo=="GA"):
-		x=cga.GA(getattr(objectives, objective_name),lb,ub,k * f,popSize,Iter, k, points, metric)        
+	if(algo=="WOABAT"):
+		x=woabat.WOABAT(getattr(objectives, objective_name),lb,ub,k * f,popSize,Iter, k, points, metric)        
 	if(algo=="BAT"):
 		x=cbat.BAT(getattr(objectives, objective_name),lb,ub,k * f,popSize,Iter, k, points, metric)        
 	if(algo=="FFA"):
