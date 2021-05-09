@@ -35,11 +35,32 @@ def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
     #Initialize convergence
     convergence_curve=numpy.zeros(Max_iter)
     
+    #bat algorithm addition
+    Qmin=0         # Frequency minimum
+    Qmax=2         # Frequency maximum
+    
+    # Initializing arrays
+    Q=numpy.zeros(SearchAgents_no)  # Frequency
+    v=numpy.zeros((SearchAgents_no,dim))  # Velocities
+    Convergence_curve=[];
+    
+    A1=0.5;      # Loudness  (constant or decreasing)
+    r=0.5;      # Pulse rate (constant or decreasing)
+    
+    # Initialize the population/solutions
+    Positions=numpy.random.rand(SearchAgents_no,dim)*(ub-lb)+lb
+    labelsPred=numpy.zeros((SearchAgents_no,len(points)))
+    fitness=numpy.zeros(SearchAgents_no)
+
+    z=numpy.zeros((SearchAgents_no,dim))
+    z=numpy.copy(Positions)
+    
+    
     
     ############################
     s=solution()
 
-    print("WOA is optimizing  \""+objf.__name__+"\"")    
+    print("WOABAT is optimizing  \""+objf.__name__+"\"")    
 
     timerStart=time.time() 
     s.startTime=time.strftime("%Y-%m-%d-%H-%M-%S")
@@ -102,12 +123,38 @@ def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                     if abs(A)>=1:
                         rand_leader_index = math.floor(SearchAgents_no*random.random());
                         X_rand = Positions[rand_leader_index, :]
-                        D_X_rand=abs(C*X_rand[j]-Positions[i,j]) 
-                        Positions[i,j]=X_rand[j]-A*D_X_rand      
+                        Q[i]=Qmin+(Qmin-Qmax)*random.random()
+                        v[i,:]=v[i,:]+(X_rand[j]-Leader_pos[j])*Q[i]
+                        z[i,:]=Positions[i,:]+v[i,:]
                         
+                        # Pulse rate
+                        if random.random()>r:
+                        z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
+                        
+                        #Evaluate new solutions
+                        Fnew = objf(z[i,:])
+          
+                        
+          
+                        #D_X_rand=abs(C*X_rand[j]-Positions[i,j]) 
+                        #Positions[i,j]=X_rand[j]-A*D_X_rand 
+                
+                
+                       
                     elif abs(A)<1:
-                        D_Leader=abs(C*Leader_pos[j]-Positions[i,j]) 
-                        Positions[i,j]=Leader_pos[j]-A*D_Leader      
+                        Q[i]=Qmin+(Qmin-Qmax)*random.random()
+                        v[i,:]=v[i,:]+(Positions[i,:]-Leader_pos[j])*Q[i]
+                        z[i,:]=Positions[i,:]+v[i,:]
+                        
+                        # Pulse rate
+                        if random.random()>r:
+                        z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
+                        
+                        #Evaluate new solutions
+                        Fnew = objf(z[i,:])
+                        
+                        #D_Leader=abs(C*Leader_pos[j]-Positions[i,j]) 
+                        #Positions[i,j]=Leader_pos[j]-A*D_Leader     
                     
                     
                 elif p>=0.5:
@@ -127,7 +174,7 @@ def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
     s.endTime=time.strftime("%Y-%m-%d-%H-%M-%S")
     s.executionTime=timerEnd-timerStart
     s.convergence=convergence_curve
-    s.optimizer="WOA"   
+    s.optimizer="WOABAT"   
     s.objfname=objf.__name__
     s.best = Leader_score
     s.bestIndividual = Leader_pos
