@@ -120,7 +120,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
             for j in range(0,dim):
                 
                 if p<0.5:
-                    if abs(A)>=1:
+                    if abs(A)>=1 or abs(A)<1:
                         rand_leader_index = math.floor(SearchAgents_no*random.random());
                         X_rand = Positions[rand_leader_index, :]
                         Q[i]=Qmin+(Qmin-Qmax)*random.random()
@@ -140,7 +140,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         #Positions[i,j]=X_rand[j]-A*D_X_rand 
                 
                 
-                       
+                     '''  
                     elif abs(A)<1:
                         Q[i]=Qmin+(Qmin-Qmax)*random.random()
                         v[i,:]=v[i,:]+(Positions[i,:]-Leader_pos[j])*Q[i]
@@ -151,7 +151,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                             z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
                         
                         #Evaluate new solutions
-                        Fnew = objf(z[i,:])
+                        Fnew = objf(z[i,:])'''
                         
                         #D_Leader=abs(C*Leader_pos[j]-Positions[i,j]) 
                         #Positions[i,j]=Leader_pos[j]-A*D_Leader     
