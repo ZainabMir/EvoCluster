@@ -40,7 +40,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
     ############################
     s=solution()
 
-    print("WOA is optimizing  \""+objf.__name__+"\"")    
+    print("WOABAT is optimizing  \""+objf.__name__+"\"")    
 
     timerStart=time.time() 
     s.startTime=time.strftime("%Y-%m-%d-%H-%M-%S")
