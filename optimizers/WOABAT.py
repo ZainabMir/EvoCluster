@@ -54,7 +54,8 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
 
     z=numpy.zeros((SearchAgents_no,dim))
     z=numpy.copy(Positions)
-    
+
+       
     
     
     ############################
@@ -88,6 +89,12 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                 
             fitness = fitnessValue
             labelsPred[i,:] = labelsPredValues
+            
+            # Find the initial best solution
+            fmin = min(fitness)
+            I=numpy.argmin(fitness)
+            Leader_pos=Positions[I,:]
+            bestLabelsPred=labelsPred[I,:]
             
             # Update the leader
             if fitness<Leader_score: # Change this to > for maximization problem
@@ -127,13 +134,29 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         v[i,:]=v[i,:]+(X_rand[j]-Leader_pos[j])*Q[i]
                         z[i,:]=Positions[i,:]+v[i,:]
                         
+                        # Check boundaries
+                        Positions=numpy.clip(Positions,lb,ub)
+                        
                         # Pulse rate
                         if random.random()>r:
                             z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
                         
                         #Evaluate new solutions
                         Fnew = objf(z[i,:])
+                        LabelsPrednew = labelsPredValues
           
+                        '''# Update if the solution improves
+                        if ((Fnew != numpy.inf) and (Fnew<=Fitness[i]) and (random.random()<A) ):
+                           Sol[i,:]=numpy.copy(S[i,:])
+                             Fitness[i]=Fnew
+                            labelsPred[i,:]=LabelsPrednew'''
+           
+    
+          # Update the current best solution
+          if Fnew != numpy.inf and Fnew<=fmin:
+                best=numpy.copy(S[i,:])
+                fmin=Fnew
+                bestLabelsPred=LabelsPrednew
                         
           
                         #D_X_rand=abs(C*X_rand[j]-Positions[i,j]) 
