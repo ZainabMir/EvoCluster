@@ -143,7 +143,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                             z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
                         
                         #Evaluate new solutions
-                        Fnew = objf(z[i,:])
+                        Fnew = objf(z[i,:],points,k,metric)
                         LabelsPrednew = labelsPredValues
           
                         '''
