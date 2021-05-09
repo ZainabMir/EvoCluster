@@ -129,7 +129,7 @@ def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         
                         # Pulse rate
                         if random.random()>r:
-                        z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
+                            z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
                         
                         #Evaluate new solutions
                         Fnew = objf(z[i,:])
@@ -148,7 +148,7 @@ def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         
                         # Pulse rate
                         if random.random()>r:
-                        z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
+                            z[i,:]=Leader_pos[j]+0.001*numpy.random.randn(dim)
                         
                         #Evaluate new solutions
                         Fnew = objf(z[i,:])
