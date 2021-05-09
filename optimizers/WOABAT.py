@@ -12,7 +12,7 @@ import time
 
 
 
-def WOA(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
+def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
 
 
     #dim=30
