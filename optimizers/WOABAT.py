@@ -140,7 +140,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         #Positions[i,j]=X_rand[j]-A*D_X_rand 
                 
                 
-                     '''  
+                    '''  
                     elif abs(A)<1:
                         Q[i]=Qmin+(Qmin-Qmax)*random.random()
                         v[i,:]=v[i,:]+(Positions[i,:]-Leader_pos[j])*Q[i]
