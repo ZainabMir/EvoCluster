@@ -89,7 +89,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                 
             fitness = fitnessValue
             labelsPred[i,:] = labelsPredValues
-            
+            '''
             # Find the initial best solution
             f = min(fitness)
             fmin = int(f)
@@ -101,7 +101,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
             if fitness<Leader_score: # Change this to > for maximization problem
                 Leader_score=fitness; # Update alpha
                 Leader_pos=Positions[i,:].copy() # copy current whale position into the leader position
-                Leader_labels=labelsPred[i,:].copy() # copy current whale position into the leader position
+                Leader_labels=labelsPred[i,:].copy() # copy current whale position into the leader position'''
             
             
         
