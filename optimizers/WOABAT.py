@@ -145,18 +145,18 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
                         Fnew = objf(z[i,:])
                         LabelsPrednew = labelsPredValues
           
-                        '''# Update if the solution improves
+                        '''
                         if ((Fnew != numpy.inf) and (Fnew<=Fitness[i]) and (random.random()<A) ):
                            Sol[i,:]=numpy.copy(S[i,:])
                              Fitness[i]=Fnew
                             labelsPred[i,:]=LabelsPrednew'''
            
-    
-          # Update the current best solution
-          if Fnew != numpy.inf and Fnew<=fmin:
+                        '''
+                        # Update the current best solution
+                        if Fnew != numpy.inf and Fnew<=fmin:
                 best=numpy.copy(S[i,:])
                 fmin=Fnew
-                bestLabelsPred=LabelsPrednew
+                bestLabelsPred=LabelsPrednew'''
                         
           
                         #D_X_rand=abs(C*X_rand[j]-Positions[i,j]) 
