@@ -93,7 +93,7 @@ def WOABAT(objf,lb,ub,dim,SearchAgents_no,Max_iter,k,points, metric):
             # Find the initial best solution
             f = min(fitness)
             fmin = int(f)
-            I=numpy.argmin(fitness)
+            I=numpy.argmin(int(fitness))
             Leader_pos=Positions[I,:]
             bestLabelsPred=labelsPred[I,:]
             
